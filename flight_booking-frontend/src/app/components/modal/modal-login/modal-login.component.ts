@@ -13,29 +13,30 @@ export class ModalLoginComponent implements OnInit {
 
 
 constructor() { }
+
   ngOnInit(): void {
     
   }
 
 
-loginCompleted() {
-  const loginModel: any = document.getElementById('loginModelClose')
-  const regEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
-  const emailValid = regEmail.test(this.email);
-  if(this.name.length < 3) {
-    alert('Name need to have a minimum 4 letters')
+  loginCompleted() {
+    const loginModel: any = document.getElementById('loginModelClose');
+    const regEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
+    const emailValid = regEmail.test(this.email);
+    if(this.name.length < 3) {
+      alert('Name need to have a minimum 4 letters')
+      return
+    }
+    if(!emailValid) {
+      alert('Please, insert a valid email!')
+      return
+    }
+    localStorage.setItem('loggedUser', (this.email));
+    localStorage.setItem('loggedUserName', (this.name));
+    this.userlogged.emit({name: this.name, email: this.email});
+    this.email = '';
+    this.name = '';
+    loginModel.click();
     return
   }
-  if(!emailValid) {
-    alert('Please, insert a valid email!')
-    return
-  }
-  localStorage.setItem('loggedUser', (this.email))
-  localStorage.setItem('loggedUserName', (this.name))
-  this.userlogged.emit({name: this.name, email: this.email})
-  this.email = '';
-  this.name = '';
-  loginModel.click()
-  return
-}
 }

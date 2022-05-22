@@ -1,35 +1,6 @@
-.header {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.mainIcon {
-  width: 20%;
-}
-
-.btnFrom {
-  background-color: #ff5e00;
-}
-
-.formLocationsPick {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0px 0px 25px 20px;
-}
-
-.toCardLocation {
-  justify-content: flex-end;
-}
-
 .locationChoose {
   width: 90%;
   height: 300px;
-}
-
-.fromCardLocation {
-  width: 300px;
 }
 
 .departureChooseForm {
@@ -40,25 +11,10 @@
   justify-content: center;
 }
 
-.revertIcon {
-  width: 20%;
-}
-
-.revertBtn {
-  border: none;
-  background: none
-}
-
 .cardLocationsPicked {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-.inputFrom {
-  border-radius: 10px;
-  padding: 10px;
-  background-color: rgba(196, 196, 196, 0.959);
 }
 
 .intinerariesInfo {

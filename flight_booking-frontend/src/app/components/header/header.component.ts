@@ -12,9 +12,10 @@ isLogged: boolean = false;
 
 
 constructor() { }
+
   ngOnInit(): void {
-    const userLogged = localStorage.getItem('loggedUser') as string
-    const usernameLogged = localStorage.getItem('loggedUserName') as string
+    const userLogged = localStorage.getItem('loggedUser') as string;
+    const usernameLogged = localStorage.getItem('loggedUserName') as string;
     if (userLogged) {
       this.isLogged = true;
       this.email = userLogged
@@ -23,23 +24,23 @@ constructor() { }
   }
 
 
-loginCompleted() {
-  if(this.name.length < 3) {
-    alert('Name need to be mininum 4 letters')
+  loginCompleted() {
+    if(this.name.length < 3) {
+      alert('Name need to be mininum 4 letters')
+      return
+    }
     return
   }
-  return
-}
 
-userLogged(event: any) {
-  this.name = event.name;
-  this.email = event.email;
-  this.isLogged = true;
-}
+  userLogged(event: any) {
+    this.name = event.name;
+    this.email = event.email;
+    this.isLogged = true;
+  }
 
-loggedOut() {
-  this.name = '';
-  this.email = '';
-  this.isLogged = false;
-}
+  loggedOut() {
+    this.name = '';
+    this.email = '';
+    this.isLogged = false;
+  }
 }

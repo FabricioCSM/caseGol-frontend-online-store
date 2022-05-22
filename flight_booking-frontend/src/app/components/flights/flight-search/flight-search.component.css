@@ -1,22 +1,5 @@
-.header {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.mainIcon {
-  width: 20%;
-}
-
 .btnFrom {
   background-color: #ff5e00;
-}
-
-.formLocationsPick {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0px 0px 25px 20px;
 }
 
 .resultSearchLocation {
@@ -33,10 +16,6 @@
 .locationChoose {
   width: 90%;
   height: 300px;
-}
-
-.fromCardLocation {
-  width: 300px;
 }
 
 .departureChooseForm {

@@ -14,8 +14,4 @@ constructor() { }
     
   }
 
-
-loginCompleted() {
-  console.log(this.email, this.name)
-}
 }

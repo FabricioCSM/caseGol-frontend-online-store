@@ -13,17 +13,17 @@ export class FlightSearchComponent implements OnInit {
   to: any = "";
   destination: any;
   toLocation: any = [];
-  departureDateTemplate: boolean = false
+  departureDateTemplate: boolean = false;
   fromLocation: any = [];
   checkedRoundTrip: boolean = false;
   returnTrip: boolean = false;
   origin: any;
   date: any = "";
   flights: any;
-  flightTemplate: boolean = false
+  flightTemplate: boolean = false;
   email: string = '';
   name: string = '';
-  booked: boolean = false
+  booked: boolean = false;
   first: string = "";
   last: string= "";
   bookedFlight: any;
@@ -35,67 +35,66 @@ export class FlightSearchComponent implements OnInit {
   toLocationTemplate: boolean = false;
 
   constructor(
-    private fetch: FlightsService,
-  ) { }
-    ngOnInit(): void {
-    }
+      private fetch: FlightsService,
+    ) { }
+    
+    ngOnInit(): void {}
 
   handleFromLocation() {
-      if (this.from.length > 3) {
-        this.fetch.getLocation(this.from)
-        .then(response => response.json())
-        .then(data => {
-          this.fromLocation = data.data
+    if (this.from.length > 3) {
+      this.fetch.getLocation(this.from)
+      .then(response => response.json())
+      .then(data => {
+        this.fromLocation = data.data;
         })
       }
     }
 
-    handleOrigin(location: any) {
-      this.origin = location;
-      this.locationToReverseTo = location;
-      this.originChoose = true;
-      this.flightTemplate = false
-      this.toLocationTemplate = true;
-      this.fromLocation = [];
-    }
+  handleOrigin(location: any) {
+    this.origin = location;
+    this.locationToReverseTo = location;
+    this.originChoose = true;
+    this.flightTemplate = false;
+    this.toLocationTemplate = true;
+    this.fromLocation = [];
+  }
 
 
 
 
   handleToLocation() {
-      if (this.to.length > 3) {
-        this.fetch.getLocation(this.to)
-        .then(response => response.json())
-        .then(data => this.toLocation = data.data)
+    if (this.to.length > 3) {
+      this.fetch.getLocation(this.to)
+      .then(response => response.json())
+      .then(data => this.toLocation = data.data)
       }
-    }
+  }
 
-    handleDestination(location: any) {
-      this.destination = location;
-      // this.toLocationTemplate = false;
-      this.toChoose = true;
-      this.toLocation = []
-      this.departureDateTemplate = true;
-    }
+  handleDestination(location: any) {
+    this.destination = location;
+    this.toChoose = true;
+    this.toLocation = [];
+    this.departureDateTemplate = true;
+  }
     
 
   onFindFlight() {
-      if (this.date == "") {
-        alert("Please choose a date")
-      } else {
-        this.loading = true;
-        this.fetch.findFlight(this.origin.iataCode, this.destination.iataCode, this.date)
-        .then(response => response.json())
-        .then(data => {
-          this.flights = data.data
-          this.flightTemplate = true
-          this.loading = false
-        })
-        .catch((error) => {
-          this.loading = false
-          alert(error)
-        });
-      }
+    if (this.date == "") {
+      alert("Please choose a date")
+    } else {
+      this.loading = true;
+      this.fetch.findFlight(this.origin.iataCode, this.destination.iataCode, this.date)
+      .then(response => response.json())
+      .then(data => {
+        this.flights = data.data;
+        this.flightTemplate = true;
+        this.loading = false;
+      })
+      .catch((error) => {
+        this.loading = false;
+        alert(error)
+      });
+    }
   }
 
 
@@ -115,7 +114,7 @@ export class FlightSearchComponent implements OnInit {
       first: this.first,
       last: this.last
     }
-    const dataForBookingFlight = { flight: flight, name: name }
+    const dataForBookingFlight = { flight: flight, name: name };
     this.fetch.bookFlightConfirmation(data)
     .then(response => response.json())
     .then(dataObject => {
@@ -123,27 +122,27 @@ export class FlightSearchComponent implements OnInit {
       this.fetch.flightBooking(dataForBookingFlight)
       .then(response => response.json())
       .then(data => {
-        this.bookedFlight = data
+        this.bookedFlight = data;
         this.loading = false;
         this.booked  = true;
         this.returnTrip = this.checkedRoundTrip;
-        this.from = ''
-        this.to = ''
-        this.flightTemplate = false
-        this.flights = []
-        const userLogged = localStorage.getItem('loggedUser')
-        const userLoggedTickets = JSON.parse(localStorage.getItem(userLogged as string) as string) 
-        userLoggedTickets ? localStorage.setItem(userLogged as string, JSON.stringify([...userLoggedTickets, this.bookedFlight])) : localStorage.setItem(userLogged as string, JSON.stringify([this.bookedFlight])) 
+        this.from = '';
+        this.to = '';
+        this.flightTemplate = false;
+        this.flights = [];
+        const userLogged = localStorage.getItem('loggedUser');
+        const userLoggedTickets = JSON.parse(localStorage.getItem(userLogged as string) as string);
+        userLoggedTickets ? localStorage.setItem(userLogged as string, JSON.stringify([...userLoggedTickets, this.bookedFlight])) : localStorage.setItem(userLogged as string, JSON.stringify([this.bookedFlight]));
 
       })
       .catch((error) => {
-        this.loading = false
+        this.loading = false;
         alert(error)
       });
     })
     .catch((error) => {
       console.error('Error:', error);
-      this.loading = false
+      this.loading = false;
       alert(error)
     });
   }
@@ -159,10 +158,10 @@ export class FlightSearchComponent implements OnInit {
 
   reverseFields() {
     this.origin = this.destination;
-    this.destination = this.locationToReverseTo
+    this.destination = this.locationToReverseTo;
     this.locationToReverseTo = this.origin;
-    this.from = ''
-    this.to = ''
+    this.from = '';
+    this.to = '';
   }
 
   returnToMain() {
@@ -174,15 +173,12 @@ export class FlightSearchComponent implements OnInit {
     this.destination = '';
     this.origin = '';
     this.toLocation = [];
-    this.from = ''
-    this.to = ''
+    this.from = '';
+    this.to = '';
     this.first = "";
     this.date = "";
     this.last = "";
     this.booked= false;
   }
 
-  loginCompleted() {
-    console.log(this.email, this.name)
-  }
 }

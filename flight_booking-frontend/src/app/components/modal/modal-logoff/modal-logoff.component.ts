@@ -17,10 +17,10 @@ constructor() { }
   }
 
 
-logOut() {
-  const loginModel: any = document.getElementById('loginOutModelClose')
-  localStorage.removeItem('loggedUser');
-  loginModel.click()
-  this.loggedOut.emit()
-}
+  logOut() {
+    const loginModel: any = document.getElementById('loginOutModelClose');
+    localStorage.removeItem('loggedUser');
+    loginModel.click();
+    this.loggedOut.emit();
+  }
 }

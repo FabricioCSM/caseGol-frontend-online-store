@@ -7,22 +7,21 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CheckFlightsComponent implements OnInit {
 
   isLogged: boolean | undefined;
-  hasTickets: boolean = false
+  hasTickets: boolean = false;
   userLoggedTickets: any;
 
   constructor() { }
 
     ngOnInit(): void {
-      const userLogged = localStorage.getItem('loggedUser') as string
-      this.isLogged = false
+      const userLogged = localStorage.getItem('loggedUser') as string;
+      this.isLogged = false;
       if (userLogged) {
-        this.userLoggedTickets = JSON.parse(localStorage.getItem(userLogged) as string) 
+        this.userLoggedTickets = JSON.parse(localStorage.getItem(userLogged) as string);
         this.isLogged = true
       }
       if(this.userLoggedTickets) {
-        // this.userLoggedTickets.shift()
         this.hasTickets = true;
-      }
+      };
     }
 
     userlogged(evento: any) {
