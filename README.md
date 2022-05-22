@@ -1,3 +1,9 @@
+### Run npm install on backend
+### Run npm install on flight_booking_frontend
+### Run npm start
+
+---
+
 # Challenge
 
 This challenge consists of two different parts.
