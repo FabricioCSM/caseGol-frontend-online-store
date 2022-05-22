@@ -6,11 +6,6 @@ import { FlightSearchComponent } from './components/flights/flight-search/flight
 
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./components/flights/flights.module').then(m=>m.FlightsModule),
-  //   pathMatch: 'full' 
-  // },
   {
     path: "",
     redirectTo: '/flightsSearch',

@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-// import { FlightsModule } from './components/flights/flights.module';
 import { ModalModule } from './components/modal/modal.module';
 import { FlightSearchComponent } from './components/flights/flight-search/flight-search.component';
 import { CheckFlightsComponent } from './components/flights/check-flights/check-flights.component';

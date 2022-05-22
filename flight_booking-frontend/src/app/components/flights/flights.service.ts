@@ -2,15 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { ApiLinkService } from '../../shared/api-link.service';
 
-// const getHeaders = (token?) => new HttpHeaders({
-//   'authorization': localStorage.getItem('LogInHB') || token,
-//   'Content-Type': "application/json"
-// });
-
-// const getHeadersData = (token?) => new HttpHeaders({
-//   'authorization': localStorage.getItem('LogInHB') || token,
-// });
-
 @Injectable({
   providedIn: 'root'
 })
