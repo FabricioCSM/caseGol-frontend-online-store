@@ -1,0 +1,47 @@
+<header class="header w-75">
+  <img class="mainIcon rounded" src="assets/gol-removebg-preview.png">
+  <h1>Find flight deals around the world</h1>
+</header>
+<hr class="mb-0" style="margin-bottom: 20px;">
+<nav style="display: flex; flex-direction: row; justify-content: space-between" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li  style="padding: 15px;" class="nav-item active navbarOptions">
+          <a class="nav-link sr-only" routerLink="/flightsSearch" routerLinkActive="active">Buy your ticket</a>
+        </li>
+        <li style="padding: 15px;" class="nav-item navbarOptions">
+          <a class="nav-link"  routerLink="/checkFlights" routerLinkActive="active" >Check your flights</a>
+      </li>
+      <li style="padding: 15px;" class="nav-item navbarOptions">
+        <a class="nav-link"  href="#" data-bs-toggle="modal" data-bs-target="#customerService">Customer Service</a>
+      </li>
+      </ul>
+  </div>
+  <div>
+      <div *ngIf="!isLogged">
+          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#login">
+              <img style="width: 50px; background-color: none;" src="assets/user-interface.png">
+          </button>
+      </div>
+      <div class="loggedHeader" *ngIf="isLogged">
+          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#logoff">
+              <img style="width: 50px; background-color: none;" src="assets/user-interface.png">
+              <p>Welcome {{this.name}}</p>
+            </button>
+      </div>
+  </div>
+  <hr class="mb-0" style="margin-bottom: 20px;">
+</nav>
+
+<div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <app-modal-login (userlogged)="userLogged($event)"></app-modal-login>
+</div>
+
+<div class="modal fade" id="logoff" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <app-modal-logoff (loggedOut)="loggedOut()" [email]="email"></app-modal-logoff>
+</div>
+
+<div class="modal fade" id="customerService" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <app-modal-customer-service ></app-modal-customer-service>
+</div>
+

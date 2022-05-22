@@ -1,0 +1,10 @@
+.customerServiceMsg {
+  display: flex;
+  flex-direction: column;
+}
+
+.contactTel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

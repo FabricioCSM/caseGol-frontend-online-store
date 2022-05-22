@@ -1,0 +1,132 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" ></ngx-loading>
+
+<form *ngIf="!loading && !returnBooked">
+    <div class="cardLocationsPicked">
+        <div class="w-25 locationChoose block rounded-lg rounded shadow-lg text-center card mb-4 mt-4" >
+            <div class="py-3 px-6 border-b border-gray-300"> 
+                <b>Name:</b> {{ destination.name }}
+            </div>
+            <div class="p-6">
+            <h5 class="text-gray-900 text-xl font-medium mb-2">City Name: {{ destination.address.cityName }}</h5>
+            <p class="text-gray-700 text-base mb-4">
+                Country Name: {{ destination.address.countryName }}
+            </p>
+            </div>
+            <div class="py-3 px-6 border-t border-gray-300 text-gray-600">
+                <b>SubType:</b> {{ destination.subType }}
+            </div>
+        </div>
+
+        <div class="w-25 locationChoose block rounded-lg rounded shadow-lg text-center card mb-4 mt-4">
+            <div class="py-3 px-6 border-b border-gray-300">
+                <b>Name:</b> {{ origin.name }}
+            </div>
+            <div class="p-6">
+            <h5 class="text-gray-900 text-xl font-medium mb-2">City Name: {{ origin.address.cityName }}</h5>
+            <p class="text-gray-700 text-base mb-4">
+                Country Name: {{ origin.address.countryName }}
+            </p>
+            </div>
+            <div class="py-3 px-6 border-t border-gray-300 text-gray-600">
+                <b>SubType:</b> {{ origin.subType }}
+            </div>
+        </div>
+    </div>
+    <div class="flightTitleContainer container mb-5 mt-5">
+        <div class="selectFlightTitle">
+            <img style="width: 50px; margin-right: 20px;" src="assets/plane.png" />
+            <h3>Please, choose your return Flight</h3>
+        </div>
+    </div>
+    <div class="departureChooseForm">
+        <div  style="width: 40%" >
+            <label for=""><h3>Departure Date:</h3></label>
+            <input type="date" class="form-control" name="date" [(ngModel)]="date">
+            <br>
+            <button class="btn btn-secondary" (click)="onFindFlight();" [ngStyle]="{'width': '100%'}">Find Flights</button>
+        </div>
+    </div>
+        <div *ngIf="flightTemplate">
+            <div class="noFlightsMsg" *ngIf="!flights">
+                <img src="assets/search.png" />
+                <h5>Sorry, no flights were found!</h5> 
+            </div>
+            <div class="card mb-4 mt-4" *ngFor="let flight of flights">
+                    <div class="card-header"><b>Price:</b> {{ flight.price.total }} ({{ flight.price.currency }})</div>
+                    <div class="card-body">
+                        Number of Seats Available: {{ flight.numberOfBookableSeats }}
+                        <br>
+                        Last Ticketing Date: {{ flight.lastTicketingDate }}
+                        <hr style="margin-bottom: 20px;">
+                        <h5>Itineraries</h5>
+                        <div class="intinerariesInfo">
+                            <p style="padding: 10px; marginLeft: 3px" *ngFor="let i of flight.itineraries[0].segments">
+                                <strong>Departure:</strong> {{ i.departure.iataCode }} <strong>at</strong> {{ i.departure.at }}
+                                <em>(Terminal: {{ i.departure.terminal }})</em>
+                                &nbsp;
+                                <strong>Arrival:</strong> {{ i.arrival.iataCode }} <strong>at</strong> {{ i.arrival.at }}
+                                <em>(Terminal: {{ i.arrival.terminal }})</em>
+                                &nbsp;
+                                <strong>Number of stops:</strong> {{ i.numberOfStops }}
+                            </p>
+                        </div>
+                        Duration: {{ flight.itineraries[0].duration }}
+                        <hr style="margin-bottom: 20px;">
+                        
+                    </div>
+                    <div class="card-footer"><button class="btn btn-warning" (click)="onBookFlight(flight)" [ngStyle]="{'width': '100%'}">Book Flight</button></div>
+              </div>
+        </div>
+    
+    </form>
+
+    <div class="successMessage" style="margin-top: 100px; " *ngIf="returnBooked">
+        <div class="alert alert-success" style="width: 100%" role="alert">
+            Thank you for choosing GOL, you Successfully Booked the flight!
+        </div>
+        <button (click)="returnToMain()" class="returnBtn"> Return to Main</button>
+        <div style="margin-bottom: 20%;" class="card mb-4 mt-4">
+            <div class="card-body">
+                <div>
+                    <h4><strong>Traveler: {{ bookedFlight.data.travelers[0].name.firstName }} {{ bookedFlight.data.travelers[0].name.lastName }}</strong></h4>
+                    <h4>Document: {{ bookedFlight.data.travelers[0].documents[0].documentType }} - Id Number: {{ bookedFlight.data.travelers[0].documents[0].number }}</h4>
+                </div>
+                <h5>Itineraries</h5>
+                <div class="intinerariesInfo">
+                    <p style="padding: 10px; marginLeft: 3px" *ngFor="let i of bookedFlight.data.flightOffers[0].itineraries[0].segments">
+                        <strong>Departure:</strong> {{ i.departure.iataCode }} <strong>at</strong> {{ i.departure.at }}
+                        <em>(Terminal: {{ i.departure.terminal }})</em>
+                        &nbsp;
+                        <strong>Arrival:</strong> {{ i.arrival.iataCode }} <strong>at</strong> {{ i.arrival.at }}
+                        <em>(Terminal: {{ i.arrival.terminal }})</em>
+                        &nbsp;
+                        <strong>Number of stops:</strong> {{ i.numberOfStops }}
+                    </p>
+                </div>
+                <hr style="margin-bottom: 20px;">
+                <div class="card-header"><b>Price:</b> {{ bookedFlight.data.flightOffers[0].price.total }} ({{ bookedFlight.data.flightOffers[0].price.currency }})</div>
+            </div>
+        </div>
+        <div style="margin-bottom: 20%;" class="card mb-4 mt-4">
+            <div class="card-body">
+                <div>
+                    <h4><strong>Traveler: {{ bookedFlight.data.travelers[0].name.firstName }} {{ bookedFlight.data.travelers[0].name.lastName }}</strong></h4>
+                    <h4>Document: {{ bookedFlight.data.travelers[0].documents[0].documentType }} - Id Number: {{ bookedFlight.data.travelers[0].documents[0].number }}</h4>
+                </div>
+                <h5>Itineraries</h5>
+                <div class="intinerariesInfo">
+                    <p style="padding: 10px; marginLeft: 3px" *ngFor="let i of returnFlightBooked.data.flightOffers[0].itineraries[0].segments">
+                        <strong>Departure:</strong> {{ i.departure.iataCode }} <strong>at</strong> {{ i.departure.at }}
+                        <em>(Terminal: {{ i.departure.terminal }})</em>
+                        &nbsp;
+                        <strong>Arrival:</strong> {{ i.arrival.iataCode }} <strong>at</strong> {{ i.arrival.at }}
+                        <em>(Terminal: {{ i.arrival.terminal }})</em>
+                        &nbsp;
+                        <strong>Number of stops:</strong> {{ i.numberOfStops }}
+                    </p>
+                </div>
+                <hr style="margin-bottom: 20px;">
+                <div class="card-header"><b>Price:</b> {{ returnFlightBooked.data.flightOffers[0].price.total }} ({{ returnFlightBooked.data.flightOffers[0].price.currency }})</div>
+            </div>
+        </div>
+    </div> 

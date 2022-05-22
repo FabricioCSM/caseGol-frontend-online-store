@@ -1,0 +1,40 @@
+<div style="margin-top: 100px; ">
+    <div style="margin-bottom: 20%;" class="card mb-4 mt-4" *ngFor="let bookedFlight of userLoggedTickets">
+        <div class="card-body">
+            <div>
+                <h4><strong>Traveler: {{ bookedFlight.data.travelers[0].name.firstName }} {{ bookedFlight.data.travelers[0].name.lastName }}</strong></h4>
+                <h4>Document: {{ bookedFlight.data.travelers[0].documents[0].documentType }} - Id Number: {{ bookedFlight.data.travelers[0].documents[0].number }}</h4>
+            </div>
+            <h5>Itineraries</h5>
+            <div class="intinerariesInfo">
+                <p style="padding: 10px; marginLeft: 3px" *ngFor="let i of bookedFlight.data.flightOffers[0].itineraries[0].segments">
+                    <strong>Departure:</strong> {{ i.departure.iataCode }} <strong>at</strong> {{ i.departure.at }}
+                    <em>(Terminal: {{ i.departure.terminal }})</em>
+                    &nbsp;
+                    <strong>Arrival:</strong> {{ i.arrival.iataCode }} <strong>at</strong> {{ i.arrival.at }}
+                    <em>(Terminal: {{ i.arrival.terminal }})</em>
+                    &nbsp;
+                    <strong>Number of stops:</strong> {{ i.numberOfStops }}
+                </p>
+            </div>
+            <hr style="margin-bottom: 20px;">
+            <div class="card-header"><b>Price:</b> {{ bookedFlight.data.flightOffers[0].price.total }} ({{ bookedFlight.data.flightOffers[0].price.currency }})</div>
+        </div>
+    </div>
+
+    <div>
+        <div class="noFlightsMsg" *ngIf="!hasTickets && isLogged">
+            <img src="assets/airplane.png" />
+            <h5>You don't have Tickets</h5> 
+        </div>       
+    </div>
+
+    <div class="notLoggedMsg" *ngIf="!isLogged">
+        <h5>Please, Login to continue</h5> 
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login">Login</button>
+    </div>
+</div>
+
+<div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <app-modal-login (userlogged)="userlogged($event)"></app-modal-login>
+</div>
